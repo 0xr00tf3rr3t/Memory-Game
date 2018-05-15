@@ -1,0 +1,17 @@
+.card{
+    width:calc((100% - 40px)/4);;
+    margin:10px;
+    height:20vh;
+    background-color:red;
+
+    border:1px solid black;
+    
+}
+.flex-container{
+    display:flex;
+}
+
+main{
+    margin-left:20%;
+    margin-right:20%;
+}
