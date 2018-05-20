@@ -21,6 +21,7 @@ main{
     -moz-box-shadow: 0px 0px 33px 12px rgba(130,124,69,1);
     box-shadow: 0px 0px 33px 12px rgba(130,124,69,1);
 }
+
 .correct{background-color:green}
 .incorrect {
     /* Start the shake animation and make the animation last for 0.5 seconds */

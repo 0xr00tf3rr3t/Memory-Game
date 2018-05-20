@@ -22,11 +22,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let startingTime;
     let now;
     let timer;
-    let intervalHold;
-  
-    
+    let intervalHold;  
+    let plays=0;
     let gameState = "STOP"; // Current State of game for controlling the logic
-    let playedPairs = 7;
+    let playedPairs = 0;
     const gameBoard = document.getElementById("game"); //Gets the board from DOM
     const btnStart = document.getElementById("btnStart");
     let cards1 = document.querySelectorAll(".card");
@@ -142,26 +141,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function clicker(e) {
         let clicked = document.getElementById(e.target.id);
         let clickedElements;
+        console.log("Plays: "+ plays);
+        score();
 
         if (gameState === "WAIT") {
             clickedElements = document.querySelectorAll(".selected");
             clickedElements.forEach(function (remover) {
+                remover.style.background="";
                 remover.classList.remove('selected');
                 remover.classList.remove('incorrect');
+              
+                
             })
             gameState = "START";
         }
         if (e.target !== e.currentTarget) {
-
-
             if (gameState === "START") { //Only verify if game have started
 
                 clickedElements = document.querySelectorAll(".selected"); //Gets all elements that have been clicked already
                 if (clickedElements.length < 1 && !clicked.classList.contains('correct')) { //If there is not any selected
-                    clicked.classList.add("selected"); //Only add a new class
-                    console.log(clicked.classList);
+                    clicked.classList.add("selected"); 
+                    pictureReveal(clicked);
                 } else if (clickedElements.length === 1 && !clicked.classList.contains('correct')) { //If there is one selected
                     clicked.classList.add("selected"); //Add new class
+                    pictureReveal(clicked);
                     clickedElements = document.querySelectorAll(".selected"); //get all selected
                     validateSelection(clickedElements); //Logic for what happens when two are selected
                 }
@@ -197,7 +200,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 },500);
                 })
                 }
+                plays++;
             } catch (error) {}
         }
+    }
+
+    function pictureReveal(selection)
+    {
+        console.log(cards[selection.id]);
+        selection.style.background='url(imgs/'+ cards[selection.id]+'.png)';
+        selection.style.backgroundSize="100% 100%";
+    }
+    function score()
+    { //TODO:FIX SCORE!
+        let normalStars=document.getElementsByClassName('fa-star');   
+    console.log(normalStars);
+     if (true)
+     {
+     normalStars[normalStars.length-1].classList.remove('fas');
+     }
     }
 })
