@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         fourteen: null,
         fifthteen: null,
         sixteen: null
-
     };
     let startingTime;
     let now;
@@ -28,17 +27,83 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let playedPairs = 0;
     const gameBoard = document.getElementById("game"); //Gets the board from DOM
     const btnStart = document.getElementById("btnStart");
+    const btnRestart = document.getElementById("restart");
+    const winPopup=document.querySelector(".winPopup")
     let cards1 = document.querySelectorAll(".card");
     let timerText=document.getElementById('count');
-  
     btnStart.addEventListener('click', function () //Adds a Click Event for the start buttong
         {
+           
             startingTime= Date.now();
             
             gameState = "START" //Changes the gameState to Start
-            
+            btnStart.innerText='Restart';
+            plays=0;
+            cards1.forEach(function (element)
+        {
+            element.classList.remove('selected');
+            element.classList.remove('correct');
+            element.classList.remove('incorrect')
+            element.style.background="";
+           
+        })
+         playedPairs = 7;
             randomCards(); //Puts the random cards into the Array
-            console.log(cards);
+           
+
+           intervalHold= setInterval(function timerLogic(){
+            let seconds=0;
+            let minutes=0;
+            now = Date.now();
+            timer=now-startingTime;
+            seconds=Math.floor(timer/1000);
+            if(seconds<60)
+            {
+              timerText.innerText='0:'+seconds;
+              if (seconds<10)
+              {
+                timerText.innerText='0:0'+seconds;
+              }
+              else if (seconds < 60)
+              {
+                timerText.innerText='0:'+seconds;
+              }
+            
+            }
+            else{
+                minutes=Math.floor(timer/60000);
+                seconds=(Math.floor(timer/1000)-(60*minutes));
+                timerText.innerText=minutes+':'+seconds;
+                if (seconds<10)
+                {
+                  timerText.innerText=minutes + ':0' + seconds;
+                }
+                else
+                {
+                  timerText.innerText=minutes+':'+seconds;
+                }
+            }
+
+           },1000)
+        })
+        btnRestart.addEventListener('click',function () //Adds a Click Event for the start buttong
+        {
+           
+            startingTime= Date.now();
+            winPopup.classList.toggle('show');
+            gameState = "START" //Changes the gameState to Start
+            btnStart.innerText='Restart';
+            plays=0;
+            cards1.forEach(function (element)
+        {
+            element.classList.remove('selected');
+            element.classList.remove('correct');
+            element.classList.remove('incorrect')
+            element.style.background="";
+           
+        })
+         playedPairs = 0;
+            randomCards(); //Puts the random cards into the Array
            
 
            intervalHold= setInterval(function timerLogic(){
@@ -77,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
            },1000)
         })
 
+        
     gameBoard.addEventListener('click', clicker, false);
 
 
@@ -142,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let clicked = document.getElementById(e.target.id);
         let clickedElements;
         console.log("Plays: "+ plays);
-        score();
+     
 
         if (gameState === "WAIT") {
             clickedElements = document.querySelectorAll(".selected");
@@ -157,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         if (e.target !== e.currentTarget) {
             if (gameState === "START") { //Only verify if game have started
-
+                winPopup
                 clickedElements = document.querySelectorAll(".selected"); //Gets all elements that have been clicked already
                 if (clickedElements.length < 1 && !clicked.classList.contains('correct')) { //If there is not any selected
                     clicked.classList.add("selected"); 
@@ -167,6 +233,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     pictureReveal(clicked);
                     clickedElements = document.querySelectorAll(".selected"); //get all selected
                     validateSelection(clickedElements); //Logic for what happens when two are selected
+                    score();
+                    
                 }
             }
         }
@@ -180,17 +248,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         element.classList.add('correct');
                         element.classList.remove('selected');
                     })
-
                     playedPairs++; //How many have been guested goes up by one
                     console.log(playedPairs);
                     if (playedPairs === 8) {
                         console.log("YOU WON!");
                         gameState = "FINISHED";
                         clearInterval(intervalHold);
+                        winPopup.classList.toggle('show');
+                    
                         
                     }
 
-                } else { // Else just remove selected 
+                } else { 
                     gameState = "WAIT";
                 clickedElements.forEach(function(element)
                 {
@@ -198,9 +267,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     setTimeout(function(){
                         element.classList.remove('incorrect');
                 },500);
+            
                 })
-                }
                 plays++;
+                }
+               
             } catch (error) {}
         }
     }
@@ -213,11 +284,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     function score()
     { //TODO:FIX SCORE!
-        let normalStars=document.getElementsByClassName('fa-star');   
-    console.log(normalStars);
-     if (true)
+        let normalStars=document.querySelector('.stars');   
+   
+     if (plays===10 ||plays===16)
      {
-     normalStars[normalStars.length-1].classList.remove('fas');
+       
+    normalStars.removeChild(normalStars.lastElementChild);
+
      }
     }
 })

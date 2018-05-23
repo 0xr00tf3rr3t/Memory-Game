@@ -10,11 +10,60 @@
 .flex-container{
     display:flex;
 }
+.blur{
+    filter:blur(5px);
+}
+.winPopup{
+    display:none;/* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        text-align: center;
+    }
+    .show{
+        display:block;
+    }
+    /* Modal Content/Box */
+.modal-content {
+    background-color:rgba(65, 169, 230, 0.877);
+    font-size:3em;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 
 main{
     margin-left:20%;
     margin-right:20%;
+    padding:.9%;
+    background-color:gray;
+    -webkit-box-shadow: 0px 0px 33px 12px rgba(83, 83, 80,1);
+    -moz-box-shadow: 0px 0px 33px 12px rgba(83, 83, 80,1);
+    box-shadow: 0px 0px 33px 12px rgba(83, 83, 80,1);
 }
+.header{justify-content:space-evenly;   }
 .selected{
     background-color:red;
     -webkit-box-shadow: 0px 0px 33px 12px rgba(130,124,69,1);
@@ -23,6 +72,23 @@ main{
 }
 
 .correct{background-color:green}
+
+
+.stars{
+    margin-top:2.5%;
+}
+
+@media screen and (max-width: 992px) {
+    main{
+        margin-left:0%;
+        margin-right:0%;
+    }
+
+}
+
+
+
+
 .incorrect {
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s; 
