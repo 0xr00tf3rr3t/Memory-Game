@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en-us'>
 
 <head>
     <meta charset="utf-8" />
@@ -18,11 +18,14 @@
 <body>
     <main class> 
         <div class="header flex-container ">
+            <h1>MEMORY GAME!</h1>
                 <button id="btnStart">START</button>
-                <p>Timer: <span id="count">0:00</span></p>
-            <div class='stars'><i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                <h2 class='timer'>Timer: <span id="count">0:00</span></h2>
+                <h2 class='play'>Plays: <span id="playsNumber">0</span></h2>
+            <div class='stars'>
+                <i class="fas fa-star fa-3x"></i>
+                <i class="fas fa-star fa-3x"></i>
+                <i class="fas fa-star fa-3x"></i>
             </div>
         </div>
         <div id="game">
@@ -69,19 +72,18 @@
 </div>
 <div class='winPopup'>
         <div class="modal-content">
-                <span class="close">&times;</span>
                 <p>You win!</p>
-                <p>Your Time was 0:00!</p>
-                <div class='stars'><i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                <p>Your Time was <span id="count1">0:00</span></p>
+                <div class='stars1'>
+                    <i class="fas fa-star fa-3x"></i>
+                    <i class="fas fa-star fa-3x"></i>
+                    <i class="fas fa-star fa-3x"></i>
                 </div>
                 <button id="restart">Restart?</button>
-
               </div>
 
 </div>
 </main>
 </body>
 
-</html>
+</html> 

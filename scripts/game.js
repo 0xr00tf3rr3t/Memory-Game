@@ -21,128 +21,147 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let startingTime;
     let now;
     let timer;
-    let intervalHold;  
-    let plays=0;
+    let intervalHold;
+    let plays = 0;
     let gameState = "STOP"; // Current State of game for controlling the logic
     let playedPairs = 0;
+    var normalStars = document.querySelectorAll('.stars > .fa-star');
+    var normalStars1 = document.querySelectorAll('.stars1 > .fa-star');
     const gameBoard = document.getElementById("game"); //Gets the board from DOM
     const btnStart = document.getElementById("btnStart");
     const btnRestart = document.getElementById("restart");
-    const winPopup=document.querySelector(".winPopup")
+    const winPopup = document.querySelector(".winPopup")
     let cards1 = document.querySelectorAll(".card");
-    let timerText=document.getElementById('count');
+    let timerText = document.getElementById('count');
+    let timerText1 = document.getElementById('count1');
+    let playsText=document.getElementById('playsNumber');
     btnStart.addEventListener('click', function () //Adds a Click Event for the start buttong
         {
-           
-            startingTime= Date.now();
-            
+
+            startingTime = Date.now();
             gameState = "START" //Changes the gameState to Start
-            btnStart.innerText='Restart';
-            plays=0;
-            cards1.forEach(function (element)
-        {
-            element.classList.remove('selected');
-            element.classList.remove('correct');
-            element.classList.remove('incorrect')
-            element.style.background="";
-           
-        })
-         playedPairs = 7;
+            btnStart.innerText = 'Restart';
+            plays = 0;
+            playsText.innerText="0";
+        normalStars = document.querySelectorAll('.stars > .fa-star');
+     normalStars1 = document.querySelectorAll('.stars1 > .fa-star');
+
+            normalStars.forEach(function (restorer) {
+                restorer.classList.remove('hide');
+            })
+            normalStars1.forEach(function (restorer) {
+                    restorer.classList.remove('hide');
+                }
+            )
+
+            cards1.forEach(function (element) {
+                element.classList.remove('selected');
+                element.classList.remove('correct');
+                element.classList.remove('incorrect')
+                element.style.background = "";
+
+            })
+
+
+            playedPairs = 0;
             randomCards(); //Puts the random cards into the Array
-           
+            intervalHold = setInterval(function timerLogic() {
+                let seconds = 0;
+                let minutes = 0;
+                now = Date.now();
+                timer = now - startingTime;
+                seconds = Math.floor(timer / 1000);
+                if (seconds < 60) {
+                    timerText.innerText = '0:' + seconds;
+                    timerText1.innerText = '0:' + seconds;
+                    if (seconds < 10) {
+                        timerText.innerText = '0:0' + seconds;
+                        timerText1.innerText = '0:0' + seconds;
+                    } else if (seconds < 60) {
+                        timerText.innerText = '0:' + seconds;
+                        timerText1.innerText = '0:' + seconds;
+                    }
 
-           intervalHold= setInterval(function timerLogic(){
-            let seconds=0;
-            let minutes=0;
-            now = Date.now();
-            timer=now-startingTime;
-            seconds=Math.floor(timer/1000);
-            if(seconds<60)
-            {
-              timerText.innerText='0:'+seconds;
-              if (seconds<10)
-              {
-                timerText.innerText='0:0'+seconds;
-              }
-              else if (seconds < 60)
-              {
-                timerText.innerText='0:'+seconds;
-              }
-            
-            }
-            else{
-                minutes=Math.floor(timer/60000);
-                seconds=(Math.floor(timer/1000)-(60*minutes));
-                timerText.innerText=minutes+':'+seconds;
-                if (seconds<10)
-                {
-                  timerText.innerText=minutes + ':0' + seconds;
+                } else {
+                    minutes = Math.floor(timer / 60000);
+                    seconds = (Math.floor(timer / 1000) - (60 * minutes));
+                    timerText.innerText = minutes + ':' + seconds;
+                    timerText1.innerText = minutes + ':' + seconds;
+                    if (seconds < 10) {
+                        timerText.innerText = minutes + ':0' + seconds;
+                        timerText1.innerText = minutes + ':0' + seconds;
+                    } else {
+                        timerText.innerText = minutes + ':' + seconds;
+                        timerText1.innerText = minutes + ':' + seconds;
+                    }
                 }
-                else
-                {
-                  timerText.innerText=minutes+':'+seconds;
-                }
-            }
 
-           },1000)
+            }, 1000)
         })
-        btnRestart.addEventListener('click',function () //Adds a Click Event for the start buttong
+    btnRestart.addEventListener('click', function () //Adds a Click Event for the start buttong
         {
-           
-            startingTime= Date.now();
+
+            startingTime = Date.now();
             winPopup.classList.toggle('show');
             gameState = "START" //Changes the gameState to Start
-            btnStart.innerText='Restart';
-            plays=0;
-            cards1.forEach(function (element)
-        {
-            element.classList.remove('selected');
-            element.classList.remove('correct');
-            element.classList.remove('incorrect')
-            element.style.background="";
-           
-        })
-         playedPairs = 0;
+            btnStart.innerText = 'Restart';
+            plays = 0;
+            playsText.innerText="0";
+             normalStars.forEach(function (restorer) {
+                restorer.classList.remove('hide');
+            })
+            normalStars1.forEach(function (restorer) {
+                    restorer.classList.remove('hide');
+                }
+            )
+
+            cards1.forEach(function (element) {
+                element.classList.remove('selected');
+                element.classList.remove('correct');
+                element.classList.remove('incorrect')
+                element.style.background = "";
+
+            })
+
+            playedPairs = 0;
             randomCards(); //Puts the random cards into the Array
-           
 
-           intervalHold= setInterval(function timerLogic(){
-            let seconds=0;
-            let minutes=0;
-            now = Date.now();
-            timer=now-startingTime;
-            seconds=Math.floor(timer/1000);
-            if(seconds<60)
-            {
-              timerText.innerText='0:'+seconds;
-              if (seconds<10)
-              {
-                timerText.innerText='0:0'+seconds;
-              }
-              else if (seconds < 60)
-              {
-                timerText.innerText='0:'+seconds;
-              }
-            
-            }
-            else{
-                minutes=Math.floor(timer/60000);
-                seconds=(Math.floor(timer/1000)-(60*minutes));
-                timerText.innerText=minutes+':'+seconds;
-                if (seconds<10)
-                {
-                  timerText.innerText=minutes + ':0' + seconds;
-                }
-                else
-                {
-                  timerText.innerText=minutes+':'+seconds;
-                }
-            }
 
-           },1000)
+            intervalHold = setInterval(function timerLogic() {
+                let seconds = 0;
+                let minutes = 0;
+                now = Date.now();
+                timer = now - startingTime;
+                seconds = Math.floor(timer / 1000);
+                if (seconds < 60) {
+                    timerText.innerText = '0:' + seconds;
+                    timerText1.innerText = '0:' + seconds;
+                    if (seconds < 10) {
+                        timerText.innerText = '0:0' + seconds;
+                        timerText1.innerText = '0:0' + seconds;
+                    } else if (seconds < 60) {
+                        timerText.innerText = '0:' + seconds;
+                        timerText1.innerText = '0:' + seconds;
+                    }
+
+                } else {
+                    minutes = Math.floor(timer / 60000);
+                    seconds = (Math.floor(timer / 1000) - (60 * minutes));
+                    timerText.innerText = minutes + ':' + seconds;
+                    timerText1.innerText = minutes + ':' + seconds;
+                    if (seconds < 10) {
+                        timerText.innerText = minutes + ':0' + seconds;
+                        timerText1.innerText = minutes + ':0' + seconds;
+                    } else {
+                        timerText.innerText = minutes + ':' + seconds;
+                        timerText1.innerText = minutes + ':' + seconds;
+                    }
+                }
+
+            }, 1000)
         })
 
-        
+
     gameBoard.addEventListener('click', clicker, false);
 
 
@@ -186,13 +205,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         for (const cardNumber of cardsArray) { //Iterates inside the array
             if (parseInt(cardNumber) === number) { //convert number to int
                 counter++;
-      //          console.log("SAME NUMBER: " + cardNumber + " | " + number + " COUNT: " + counter);
+                //          console.log("SAME NUMBER: " + cardNumber + " | " + number + " COUNT: " + counter);
             }
         }
         if (counter < 2) {
             return number; //if counter is less than 2 retunr number
         } else {
-         //   console.log("Repeating function with number : " + number)
+            //   console.log("Repeating function with number : " + number)
             number = checkRepeated(cardsArray); //Recursive function into itself again
             return number;
         }
@@ -207,17 +226,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function clicker(e) {
         let clicked = document.getElementById(e.target.id);
         let clickedElements;
-        console.log("Plays: "+ plays);
-     
+        console.log("Plays: " + plays);
+
 
         if (gameState === "WAIT") {
             clickedElements = document.querySelectorAll(".selected");
             clickedElements.forEach(function (remover) {
-                remover.style.background="";
+                remover.style.background = "";
                 remover.classList.remove('selected');
                 remover.classList.remove('incorrect');
-              
-                
+
+
             })
             gameState = "START";
         }
@@ -226,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 winPopup
                 clickedElements = document.querySelectorAll(".selected"); //Gets all elements that have been clicked already
                 if (clickedElements.length < 1 && !clicked.classList.contains('correct')) { //If there is not any selected
-                    clicked.classList.add("selected"); 
+                    clicked.classList.add("selected");
                     pictureReveal(clicked);
                 } else if (clickedElements.length === 1 && !clicked.classList.contains('correct')) { //If there is one selected
                     clicked.classList.add("selected"); //Add new class
@@ -234,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     clickedElements = document.querySelectorAll(".selected"); //get all selected
                     validateSelection(clickedElements); //Logic for what happens when two are selected
                     score();
-                    
+
                 }
             }
         }
@@ -255,42 +274,47 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         gameState = "FINISHED";
                         clearInterval(intervalHold);
                         winPopup.classList.toggle('show');
-                    
-                        
+
+
                     }
 
-                } else { 
+                } else {
                     gameState = "WAIT";
-                clickedElements.forEach(function(element)
-                {
-                    element.classList.add('incorrect');
-                    setTimeout(function(){
-                        element.classList.remove('incorrect');
-                },500);
-            
-                })
-                plays++;
+                    clickedElements.forEach(function (element) {
+                        element.classList.add('incorrect');
+                        setTimeout(function () {
+                            element.classList.remove('incorrect');
+                        }, 500);
+
+                    })
+                    plays++;
+                    playsText.innerText=plays;
                 }
-               
+
             } catch (error) {}
         }
     }
 
-    function pictureReveal(selection)
-    {
+    function pictureReveal(selection) {
         console.log(cards[selection.id]);
-        selection.style.background='url(imgs/'+ cards[selection.id]+'.png)';
-        selection.style.backgroundSize="100% 100%";
+        selection.style.background = 'url(imgs/' + cards[selection.id] + '.png)';
+        selection.style.backgroundSize = "100% 100%";
     }
-    function score()
-    { //TODO:FIX SCORE!
-        let normalStars=document.querySelector('.stars');   
-   
-     if (plays===10 ||plays===16)
-     {
-       
-    normalStars.removeChild(normalStars.lastElementChild);
 
-     }
+    function score() {var normalStars = document.querySelectorAll('.stars > .fa-star');
+    var normalStars1 = document.querySelectorAll('.stars1 > .fa-star');
+
+        if (plays === 10) {
+    
+            console.log(normalStars[1].classList);
+            normalStars[2].classList.add('hide');
+            console.log(normalStars[1].classList);
+            normalStars1[2].classList.add('hide');
+
+        } else if (plays === 14) {
+            normalStars[1].classList.add('hide');
+            normalStars1[1].classList.add('hide');
+
+        }
     }
 })

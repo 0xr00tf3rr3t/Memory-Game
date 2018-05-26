@@ -3,7 +3,6 @@
     margin:10px;
     height:20vh;
     background-color:brown;
-
     border:1px solid black;
     
 }
@@ -29,6 +28,9 @@
     .show{
         display:block;
     }
+    .hide{
+        visibility: hidden;
+    } 
     /* Modal Content/Box */
 .modal-content {
     background-color:rgba(65, 169, 230, 0.877);
@@ -39,20 +41,6 @@
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 main{
     margin-left:20%;
@@ -74,8 +62,9 @@ main{
 .correct{background-color:green}
 
 
-.stars{
-    margin-top:2.5%;
+.star{
+    display:inline-block;
+    
 }
 
 @media screen and (max-width: 992px) {
@@ -85,6 +74,25 @@ main{
     }
 
 }
+@media screen and (max-width:600px)
+{
+    body{
+        font-size:0.7em;
+    }
+    
+    .card{
+       
+        flex-shrink:1;
+        min-height:20%;
+        height:7rem;
+    }
+    .timer{
+        margin:1em;
+    }
+
+    
+}
+
 
 
 
