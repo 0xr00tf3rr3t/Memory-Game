@@ -10,6 +10,10 @@ Game implements the use of HTML,CSS and Javascript all together.
 
 The Game is easy! All you have to do is find the pairs, the less tries you do to get them all right  the better your rating! Try to beat your old time! And overall have fun!
 
+# Dependecies
+* Jquery
+* Front Awesome
+
 # Contributers
 
 Created by Michael A. Valentin 
